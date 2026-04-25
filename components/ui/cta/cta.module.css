@@ -1,0 +1,80 @@
+.root {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-sans);
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 1;
+  letter-spacing: -0.005em;
+  text-decoration: none;
+  border-radius: 10px;
+  min-height: 48px;
+  padding: 14px 20px;
+  transition:
+    background-color 200ms var(--ease-out-expo),
+    border-color 200ms var(--ease-out-expo),
+    color 200ms var(--ease-out-expo),
+    transform 200ms var(--ease-out-expo);
+}
+
+@media (--desktop) {
+  .root {
+    font-size: 15px;
+    padding: 12px 24px;
+    min-height: 44px;
+  }
+}
+
+.root:hover {
+  text-decoration: none;
+}
+
+/* Primary — filled cyan */
+.primary {
+  background-color: var(--color-cyan-500);
+  color: var(--color-surface-void);
+  border: 1px solid transparent;
+}
+
+.primary:hover {
+  background-color: var(--color-cyan-600);
+  transform: translateY(-1px);
+}
+
+.primary::after {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  border-radius: 12px;
+  padding: 1px;
+  background: var(--prism-gradient);
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 200ms var(--ease-out-expo);
+  pointer-events: none;
+}
+
+.primary:hover::after {
+  opacity: 1;
+}
+
+/* Ghost — transparent w/ surface-line border */
+.ghost {
+  background-color: transparent;
+  color: var(--color-text-primary);
+  border: 1px solid var(--color-surface-line);
+}
+
+.ghost:hover {
+  border-color: var(--color-cyan-500);
+  color: var(--color-cyan-400);
+}

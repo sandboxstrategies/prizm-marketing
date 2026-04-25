@@ -1,0 +1,64 @@
+.root {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-sans);
+  text-transform: uppercase;
+}
+
+.rule {
+  display: block;
+  width: 20px;
+  height: 1px;
+  flex-shrink: 0;
+}
+
+.label {
+  font-weight: 500;
+  font-size: 11px;
+  line-height: 130%;
+  letter-spacing: 0.12em;
+}
+
+@media (--desktop) {
+  .label {
+    font-size: 12px;
+  }
+}
+
+.cyan .rule,
+.cyan .label {
+  background-color: var(--color-cyan-500);
+}
+.cyan .label {
+  background-color: transparent;
+  color: var(--color-cyan-500);
+}
+
+.cobalt .rule {
+  background-color: var(--color-cobalt-500);
+}
+.cobalt .label {
+  color: var(--color-cobalt-500);
+}
+
+.violet .rule {
+  background-color: var(--color-violet-500);
+}
+.violet .label {
+  color: var(--color-violet-500);
+}
+
+.magenta .rule {
+  background-color: var(--color-magenta-500);
+}
+.magenta .label {
+  color: var(--color-magenta-500);
+}
+
+.ember .rule {
+  background-color: var(--color-ember-500);
+}
+.ember .label {
+  color: var(--color-ember-500);
+}
