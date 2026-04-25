@@ -32,16 +32,20 @@ export function PenrosePrism({ isMobile = false }: PenrosePrismProps) {
   const meshRef = useRef<{
     body: BufferGeometry
     seam: BufferGeometry
+    silhouette: BufferGeometry
     bodyTriCount: number
     seamSegmentCount: number
+    silhouetteSegmentCount: number
   } | null>(null)
   if (!meshRef.current) {
-    const built = buildPenroseMesh({ depth: 0.6 })
+    const built = buildPenroseMesh({ depth: 0.45 })
     meshRef.current = {
       body: built.bodyGeometry,
       seam: built.seamGeometry,
+      silhouette: built.silhouetteGeometry,
       bodyTriCount: built.bodyTriCount,
       seamSegmentCount: built.seamSegmentCount,
+      silhouetteSegmentCount: built.silhouetteSegmentCount,
     }
   }
 
@@ -75,6 +79,7 @@ export function PenrosePrism({ isMobile = false }: PenrosePrismProps) {
     return () => {
       mesh?.body.dispose()
       mesh?.seam.dispose()
+      mesh?.silhouette.dispose()
       seamMat?.dispose()
     }
   }, [])
@@ -146,6 +151,10 @@ export function PenrosePrism({ isMobile = false }: PenrosePrismProps) {
         </mesh>
         <lineSegments
           geometry={meshRef.current.seam}
+          material={seamMaterialRef.current}
+        />
+        <lineSegments
+          geometry={meshRef.current.silhouette}
           material={seamMaterialRef.current}
         />
       </group>

@@ -32,8 +32,10 @@ function edgeKey(p1: Pt, p2: Pt): string {
 interface MeshOutput {
   bodyGeometry: BufferGeometry
   seamGeometry: BufferGeometry
+  silhouetteGeometry: BufferGeometry
   bodyTriCount: number
   seamSegmentCount: number
+  silhouetteSegmentCount: number
   silhouetteEdgeCount: number
   internalEdgeCount: number
 }
@@ -173,11 +175,68 @@ export function buildPenroseMesh({
   )
   seamGeometry.setAttribute('color', new Float32BufferAttribute(seamColors, 3))
 
+  // ─────────────────────────────────────────────────────────────────────
+  // SILHOUETTE GEOMETRY — line segments along outer-boundary edges.
+  // Lower intensity than seams (multiplied 0.55x) so they anchor the
+  // triangle shape without competing with the Penrose subdivision pattern.
+  // ─────────────────────────────────────────────────────────────────────
+  const silhouettePositions: number[] = []
+  const silhouetteColors: number[] = []
+  const SILHOUETTE_DAMPEN = 0.55
+
+  for (const e of silhouetteEdges) {
+    const tFront = +halfDepth - SEAM_INSET
+    const tBack = -halfDepth + SEAM_INSET
+
+    const yNorm1 = (e.p1.y - apexY) / ySpan
+    const yNorm2 = (e.p2.y - apexY) / ySpan
+    const c1 = colorAtY(yNorm1)
+    const c2 = colorAtY(yNorm2)
+
+    silhouettePositions.push(...toWorld(e.p1, tFront))
+    silhouettePositions.push(...toWorld(e.p2, tFront))
+    silhouetteColors.push(
+      c1.r * SILHOUETTE_DAMPEN,
+      c1.g * SILHOUETTE_DAMPEN,
+      c1.b * SILHOUETTE_DAMPEN
+    )
+    silhouetteColors.push(
+      c2.r * SILHOUETTE_DAMPEN,
+      c2.g * SILHOUETTE_DAMPEN,
+      c2.b * SILHOUETTE_DAMPEN
+    )
+
+    silhouettePositions.push(...toWorld(e.p1, tBack))
+    silhouettePositions.push(...toWorld(e.p2, tBack))
+    silhouetteColors.push(
+      c1.r * SILHOUETTE_DAMPEN,
+      c1.g * SILHOUETTE_DAMPEN,
+      c1.b * SILHOUETTE_DAMPEN
+    )
+    silhouetteColors.push(
+      c2.r * SILHOUETTE_DAMPEN,
+      c2.g * SILHOUETTE_DAMPEN,
+      c2.b * SILHOUETTE_DAMPEN
+    )
+  }
+
+  const silhouetteGeometry = new BufferGeometry()
+  silhouetteGeometry.setAttribute(
+    'position',
+    new Float32BufferAttribute(silhouettePositions, 3)
+  )
+  silhouetteGeometry.setAttribute(
+    'color',
+    new Float32BufferAttribute(silhouetteColors, 3)
+  )
+
   return {
     bodyGeometry,
     seamGeometry,
+    silhouetteGeometry,
     bodyTriCount: bodyPositions.length / 9,
     seamSegmentCount: seamPositions.length / 6,
+    silhouetteSegmentCount: silhouettePositions.length / 6,
     silhouetteEdgeCount: silhouetteEdges.length,
     internalEdgeCount: internalEdges.length,
   }
