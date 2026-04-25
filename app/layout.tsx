@@ -7,6 +7,7 @@ import { ReactTempus } from 'tempus/react'
 import { Link } from '@/components/ui/link'
 import { RealViewport } from '@/components/ui/real-viewport'
 import { OptionalFeatures } from '@/lib/features'
+import { themes } from '@/lib/styles/colors'
 import { fontsVariable } from '@/lib/styles/fonts'
 import AppData from '@/package.json'
 import '@/lib/styles/css/index.css'
@@ -73,7 +74,7 @@ export const metadata: Metadata = {
 }
 
 export const viewport: Viewport = {
-  themeColor: '#00cfee',
+  themeColor: themes.prizm.contrast,
   colorScheme: 'normal',
 }
 

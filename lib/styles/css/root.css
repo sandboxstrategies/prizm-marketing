@@ -48,6 +48,22 @@
 	--color-green: #00ff88;
 	--color-purple: #7928ca;
 	--color-pink: #ff0080;
+	--color-cyan-400: oklch(0.85 0.15 200);
+	--color-cyan-500: oklch(0.78 0.18 200);
+	--color-cyan-600: oklch(0.68 0.20 205);
+	--color-cobalt-500: oklch(0.62 0.22 258);
+	--color-violet-500: oklch(0.60 0.24 295);
+	--color-magenta-500: oklch(0.65 0.24 340);
+	--color-ember-500: oklch(0.74 0.18 60);
+	--color-surface-void: oklch(0.06 0.012 265);
+	--color-surface-base: oklch(0.09 0.015 265);
+	--color-surface-raised: oklch(0.12 0.018 265);
+	--color-surface-float: oklch(0.15 0.022 265);
+	--color-surface-line: oklch(0.20 0.025 265);
+	--color-text-primary: oklch(0.97 0.005 100);
+	--color-text-secondary: oklch(0.72 0.01 100);
+	--color-text-tertiary: oklch(0.52 0.01 100);
+	--color-text-dim: oklch(0.38 0.01 100);
 	
 	@variant dt {
     --device-width: 1440;

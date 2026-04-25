@@ -87,3 +87,15 @@ html.screenshot {
     opacity: 0 !important;
   }
 }
+
+/* Prizm spectrum gradient — cyan apex → ember base, matches PrismMark color mapping */
+:root {
+  --prism-gradient: linear-gradient(
+    180deg in oklch,
+    var(--color-cyan-500) 0%,
+    var(--color-cobalt-500) 22%,
+    var(--color-violet-500) 50%,
+    var(--color-magenta-500) 75%,
+    var(--color-ember-500) 100%
+  );
+}
