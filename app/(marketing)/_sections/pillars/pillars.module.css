@@ -1,0 +1,148 @@
+.root {
+  padding-block: 96px;
+  background-color: var(--color-surface-base);
+}
+
+@media (--desktop) {
+  .root {
+    padding-block: 192px;
+  }
+}
+
+.grid {
+  row-gap: 56px;
+}
+
+.headerCol {
+  grid-column: span 4 / span 4;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+@media (--desktop) {
+  .headerCol {
+    grid-column: 2 / span 10;
+  }
+}
+
+.h2 {
+  font-family: var(--font-sans);
+  font-weight: 500;
+  font-size: 36px;
+  line-height: 100%;
+  letter-spacing: -0.03em;
+  color: var(--color-text-primary);
+  text-wrap: balance;
+}
+
+@media (--desktop) {
+  .h2 {
+    font-size: 70px;
+  }
+}
+
+.cardsCol {
+  grid-column: span 4 / span 4;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+
+@media (--desktop) {
+  .cardsCol {
+    grid-column: 2 / span 10;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+}
+
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 24px;
+  background-color: var(--color-surface-raised);
+  border: 1px solid var(--color-surface-line);
+  border-radius: 16px;
+  transition: transform 200ms var(--ease-out-expo);
+}
+
+@media (--desktop) {
+  .card {
+    padding: 32px;
+    min-height: 380px;
+  }
+}
+
+.card:hover {
+  transform: translateY(-2px);
+}
+
+.cardHeader {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+}
+
+.number {
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-size: 22px;
+  line-height: 110%;
+  letter-spacing: -0.01em;
+}
+
+@media (--desktop) {
+  .number {
+    font-size: 36px;
+  }
+}
+
+.title {
+  font-family: var(--font-sans);
+  font-weight: 500;
+  font-size: 22px;
+  line-height: 110%;
+  letter-spacing: -0.02em;
+  color: var(--color-text-primary);
+  text-wrap: balance;
+}
+
+@media (--desktop) {
+  .title {
+    font-size: 28px;
+  }
+}
+
+.body {
+  font-family: var(--font-sans);
+  font-weight: 400;
+  font-size: 15px;
+  line-height: 155%;
+  color: var(--color-text-secondary);
+}
+
+@media (--desktop) {
+  .body {
+    font-size: 16px;
+  }
+}
+
+.metric {
+  margin-top: auto;
+  padding-top: 16px;
+  border-top: 1px solid var(--color-surface-line);
+}
+
+/* Accent number colors */
+.cyan .number {
+  color: var(--color-cyan-400);
+}
+.violet .number {
+  color: var(--color-violet-500);
+}
+.ember .number {
+  color: var(--color-ember-500);
+}
