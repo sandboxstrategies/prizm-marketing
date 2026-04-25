@@ -1,30 +1,24 @@
-import Logo from '@/components/ui/darkroom.svg'
 import { Link } from '@/components/ui/link'
+import { PrismMark } from '@/components/ui/prism-mark'
+import s from './footer.module.css'
 
 export function Footer() {
   return (
-    <footer className="flex dt:flex-row flex-col dt:items-end items-center justify-between p-safe font-mono uppercase">
-      <Link
-        href="https://darkroom.engineering/"
-        className="link"
-        aria-label="Darkroom Engineering"
-      >
-        <Logo className="dr-w-148 text-secondary" aria-hidden="true" />
-      </Link>
-      <div>
-        <Link
-          href="https://github.com/darkroomengineering/satus/generate"
-          className="link"
-        >
-          use this template
+    <footer className={s.root}>
+      <div className={s.brand}>
+        <PrismMark size={32} variant="footer" aria-hidden="true" />
+        <span className={s.wordmark}>Prizm</span>
+      </div>
+
+      <div className={s.right}>
+        <Link href="https://cal.com/prizm-solar" className={s.founderLink}>
+          Talk to the founder
         </Link>
-        {' / '}
-        <Link
-          href="https://github.com/darkroomengineering/satus"
-          className="link"
-        >
-          github
-        </Link>
+        <span className={s.copyright}>
+          © 2026 Sandbox Strategies. Prizm is operated by Sandbox Strategies in
+          partnership with Flo Energy Solar.
+        </span>
+        <span className={s.tagline}>Built by operators.</span>
       </div>
     </footer>
   )
