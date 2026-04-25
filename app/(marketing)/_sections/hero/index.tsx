@@ -1,7 +1,7 @@
 import { Cta } from '@/components/ui/cta'
 import { Eyebrow } from '@/components/ui/eyebrow'
-import { PrismMark } from '@/components/ui/prism-mark'
 import s from './hero.module.css'
+import { HeroMark3D } from './hero-mark-3d'
 
 export function Hero() {
   return (
@@ -35,16 +35,9 @@ export function Hero() {
         </div>
 
         <div className={s.markCol}>
-          {/* PHASE 1B: replace with WebGL volumetric Penrose triangle scene using useWebGLElement + WebGLTunnel.In per PATTERNS.md §6 */}
           <div className={s.markFrame}>
             <div className={s.markGlow} aria-hidden="true" />
-            <PrismMark
-              size={460}
-              variant="hero-placeholder"
-              showSpiral
-              style={{ width: '100%', height: 'auto' }}
-              aria-hidden="true"
-            />
+            <HeroMark3D />
           </div>
         </div>
       </div>
