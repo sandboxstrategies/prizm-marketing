@@ -1,16 +1,15 @@
 import type { MetadataRoute } from 'next'
-import AppData from '@/package.json'
-import { themes } from '@/styles/colors'
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: AppData.name,
-    short_name: AppData.name,
-    description: AppData.description,
+    name: 'Prizm',
+    short_name: 'Prizm',
+    description:
+      'Sales, ops, commissions, integrations, and AI. One platform, built by operators.',
     start_url: '/',
     display: 'standalone',
-    background_color: themes.red.primary,
-    theme_color: themes.red.primary,
+    background_color: '#0a0c16',
+    theme_color: '#00cfee',
     icons: [
       {
         src: '/icon.png',

@@ -1,6 +1,6 @@
 {
-  "name": "@darkroom.engineering/satus",
-  "description": "Next.js 16 starter by darkroom.engineering — React 19, TypeScript strict, Tailwind v4, Zod validation, and production-ready integrations",
+  "name": "prizm-marketing",
+  "description": "The solar operating system. Built by operators.",
   "version": "1.0.0",
   "license": "MIT",
   "type": "module",
@@ -32,10 +32,7 @@
     "docs:check": "bun ./lib/scripts/check-docs.ts",
     "setup:styles": "bun ./lib/styles/scripts/setup-styles.ts",
     "generate": "bun ./lib/scripts/generate.ts",
-    "handoff": "bun ./lib/scripts/prepare-handoff.ts",
-    "sanity:extract": "cd lib/integrations/sanity && bun --env-file ../../../.env.local sanity schema extract",
-    "sanity:typegen": "cd lib/integrations/sanity && bun --env-file ../../../.env.local sanity typegen generate && bun biome check --write --unsafe",
-    "sanity:mcp": "bun ./lib/scripts/copy-sanity-mcp.ts"
+    "handoff": "bun ./lib/scripts/prepare-handoff.ts"
   },
   "dependencies": {
     "@base-ui/react": "^1.1.0",

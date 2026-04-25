@@ -7,15 +7,15 @@ import { ReactTempus } from 'tempus/react'
 import { Link } from '@/components/ui/link'
 import { RealViewport } from '@/components/ui/real-viewport'
 import { OptionalFeatures } from '@/lib/features'
-import { themes } from '@/lib/styles/colors'
 import { fontsVariable } from '@/lib/styles/fonts'
 import AppData from '@/package.json'
 import '@/lib/styles/css/index.css'
 
-const APP_NAME = AppData.name
-const APP_DEFAULT_TITLE = 'Satūs'
-const APP_TITLE_TEMPLATE = '%s - Satūs'
-const APP_DESCRIPTION = AppData.description
+const APP_NAME = 'Prizm'
+const APP_DEFAULT_TITLE = 'Prizm'
+const APP_TITLE_TEMPLATE = '%s · Prizm'
+const APP_DESCRIPTION =
+  'Sales, ops, commissions, integrations, and AI. One platform, built by operators.'
 const APP_BASE_URL =
   process.env.NEXT_PUBLIC_BASE_URL ?? 'https://localhost:3000'
 
@@ -66,16 +66,14 @@ export const metadata: Metadata = {
     },
     description: APP_DESCRIPTION,
   },
-  authors: [
-    { name: 'darkroom.engineering', url: 'https://darkroom.engineering' },
-  ],
+  authors: [{ name: 'Sandbox Strategies', url: 'https://prizm.solar' }],
   other: {
     'fb:app_id': process.env.NEXT_PUBLIC_FACEBOOK_APP_ID || '',
   },
 }
 
 export const viewport: Viewport = {
-  themeColor: themes.red.primary,
+  themeColor: '#00cfee',
   colorScheme: 'normal',
 }
 
