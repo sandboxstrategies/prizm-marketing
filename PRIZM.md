@@ -34,9 +34,9 @@ Footer copyright: `© 2026 Sandbox Strategies. Prizm is operated by Sandbox Stra
 
 1. Short sentences. Periods land hard.
 2. Numbers > adjectives. "47-day install cycle" > "fast install cycles."
-3. **Banned vocabulary**: unlock, empower, seamless, solution, leverage, robust, game-changing, revolutionize, cutting-edge, best-in-class, holistic, synergize. If a competitor uses it, we don't.
+3. **Banned vocabulary**: unlock, empower, seamless, solution, leverage, robust, game-changing, revolutionize, cutting-edge, best-in-class, holistic, synergize, delight, "blow your mind", mind-blowing, "you're welcome", "trust us", "we got you", end-to-end, all-in-one, single-source-of-truth. If a competitor uses it, we don't.
 4. Confident declaratives. "We do X." Not "We help you do X."
-5. Italics on the pivot word only — the one word that turns a sentence. Use real italic font (Neue Machina has italic), not faux.
+5. Italics on the pivot word only — the one word that turns a sentence. Use real italic font when available (Phase 3+); system italic fallback acceptable in 1A.
 6. Delete every word you can without losing meaning.
 7. No SaaS storytelling. No "imagine a world where..." Just say it.
 
@@ -62,7 +62,83 @@ Footer copyright: `© 2026 Sandbox Strategies. Prizm is operated by Sandbox Stra
 
 **Single CTA**: "Talk to the founder" → `https://cal.com/prizm-solar`. No pricing shown anywhere. No demo signups.
 
-**Brand mark concept**: a faceted crystalline form — three triangular planes meeting at an internal seam. The seam glows with internal cyan light. The mark is *lit from within*. Inspired by Penrose triangle geometry, executed flat-faceted.
+---
+
+## Brand mark — Penrose Golden Triangle Prism
+
+The mark is a **golden triangle** (36° apex, 72° base angles — the Penrose primitive) **subdivided into Robinson triangles** following Penrose deflation rules, **rendered with our spectrum colors**, **lit from within** at the internal seams. Levels of detail scale with render size.
+
+### Why this geometry
+
+The golden triangle is the atomic unit of all Penrose tilings. Every kite is two golden triangles. Every dart is two golden gnomons. The arms of a pentagram are five golden triangles. Penrose tilings (built from these triangles) exhibit **"forbidden" five-fold rotational symmetry** that classical mathematicians said was impossible to use for tiling a plane.
+
+This isn't decorative math. **Penrose patterns are physically used in solar cell research** to improve light absorption by up to 57% vs periodic structures (peer-reviewed at UNSW Sydney, Cambridge, Fraunhofer ISE). The mark literally references the science of high-efficiency photovoltaics. The operator pitch:
+
+> *"Our mark uses the same Penrose pattern researchers use to make solar cells absorb 57% more light at every angle. Aperiodic structures handle every angle. Same with our platform."*
+
+### Geometry specifications
+
+**Outer silhouette**: Golden triangle (acute Robinson triangle).
+- Apex angle: 36°
+- Base angles: 72° each
+- Side lengths in golden ratio to base: sides = φ × base where φ = (1 + √5) / 2 ≈ 1.618
+- For a triangle with base = 1: sides = 1.618, height = √(φ² − 0.25) ≈ 1.539
+
+**Internal structure**: Robinson triangle deflation.
+- A golden triangle (sides φ, base 1) deflates into: 1 smaller golden triangle (sides 1, base 1/φ) + 1 golden gnomon (sides 1/φ, base 1)
+- A golden gnomon (sides 1, base φ) deflates into: 1 golden triangle (sides 1, base 1/φ) + 1 golden gnomon (sides 1/φ, base 1)
+- Bisection of golden triangle: bisect one of the 72° base angles; the bisector hits the opposite side at the point that divides it in golden ratio
+- Bisection of golden gnomon: trisect the 108° apex angle (or equivalently, bisect a 36° base angle); the bisector hits the opposite side at the golden ratio point
+
+Reference algorithm: Wolfram MathWorld — "Penrose Tiles" deflation rules. Standard, well-documented, dozens of open-source p5.js / paper.js / JS implementations.
+
+### Scale-aware rendering
+
+Levels of detail scale with the render size. Each scale gets its own variant:
+
+| Variant | Size | Subdivision levels | Treatment |
+|---|---|---|---|
+| `favicon` | 16–24px | 0 (silhouette only) | Solid silhouette + single cyan apex glow |
+| `nav` | 24–32px | 1 deflation (2 sub-triangles) | Silhouette + 1 internal seam, cyan glow |
+| `footer` | 32–48px | 2 deflations (~5 sub-triangles) | Multiple seams, prism-gradient inner glow |
+| `hero-placeholder` | 200px+ | 3–4 deflations (~15–30 sub-triangles) | Full Robinson subdivision, spectrum colors per facet, internal seams glow |
+
+### Color mapping (cyan apex, ember base — refraction direction)
+
+White light enters at the apex, refracts into spectrum down through the body. This matches real prism behavior AND real solar spectrum behavior (cooler high-energy light at top, warmer light at horizon).
+
+- Apex region (top ~20% of triangle area): `cyan-500` dominant facets
+- Upper-middle (next ~25%): `cobalt-500`
+- Middle (next ~25%): `violet-500`
+- Lower-middle (next ~20%): `magenta-500`
+- Base (bottom ~10%): `ember-500`
+
+Saturation drops from full (apex) to ~70% (base) — apex is the brightest, most-saturated region; base softens. Each facet has subtle gradient from `surface-line` edge → mapped spectrum color.
+
+### Inner seam glow
+
+The seams between Robinson triangles emit light. This is the "lit from within" signature.
+
+- `nav` / `favicon` variants: solid `cyan-500` strokes with `feGaussianBlur` filter (stdDeviation 1.5–2)
+- `footer` / `hero-placeholder` variants: stroke uses `--prism-gradient` (cyan→cobalt→violet→magenta→ember) via SVG `<linearGradient>` matching the gradient direction of the color mapping
+- The apex seam (where topmost subdivisions converge) gets the brightest glow — that's the focal point
+
+### Logarithmic spiral Easter egg
+
+Bonus mathematical detail. When you recursively subdivide a golden triangle, the apex points of each successive sub-triangle trace a **logarithmic spiral** — the same spiral found in nautilus shells, hurricane systems, galaxy arms, and sunflower seed patterns.
+
+For `hero-placeholder` and (Phase 1B) the volumetric version: include this spiral as a 1px stroke at 5% opacity passing through the apex vertices. Quiet, but enriches the mark for those who notice. In motion, the spiral can serve as the path for an internal light beam — the "white light beam" entering the apex and refracting downward.
+
+### Three render modes for Phase 1A
+
+All three are flat 2D SVG. The volumetric WebGL hero version comes Phase 1B.
+
+1. **`favicon` / `nav` / `footer`** — implemented as a single `PrismMark` React component with `variant` prop, `size` prop. CSS Module + SVG.
+2. **Hero placeholder** — same component at large size + 3-4 deflation levels visible. HTML comment marks the file: `<!-- PHASE 1B: replace with WebGL volumetric Penrose triangle scene using useWebGLElement + WebGLTunnel.In per PATTERNS.md §6 -->`
+
+### Phase 1B preview (NOT this session)
+
+The volumetric hero version: 3D extrusion of the Robinson triangle subdivision into a faceted gem (each facet = a 3D triangular face with depth). `MeshPhysicalMaterial` for premium glass-like material. Emissive seams in cyan + spectrum. UnrealBloomPass for glow. Slow rotation revealing the Penrose subdivision from different angles. Theatre.js choreography for scroll-driven inflation/deflation.
 
 ---
 
@@ -73,7 +149,7 @@ Footer copyright: `© 2026 Sandbox Strategies. Prizm is operated by Sandbox Stra
 **The source files you edit:**
 - `lib/styles/colors.ts` — flat color palette + theme registry (3-slot theme contract)
 - `lib/styles/typography.ts` — type scale (mobile/desktop sizes generate `.dr-{name}` utilities)
-- `lib/styles/fonts.ts` — `next/font/local` declarations
+- `lib/styles/fonts.ts` — `next/font/local` and Geist declarations
 - `lib/styles/easings.ts` — easing curves (already loaded as `--ease-*` tokens)
 - `lib/styles/layout.mjs` — column count, gap, safe area, screen reference widths
 
@@ -85,23 +161,19 @@ Footer copyright: `© 2026 Sandbox Strategies. Prizm is operated by Sandbox Stra
 
 ## The Satūs theme contract (3 colors per theme)
 
-Satūs's theme model is intentionally simple. Each theme has exactly 3 semantic slots:
-
-```typescript
-{ primary, secondary, contrast }
-```
+Satūs's theme model has exactly 3 semantic slots: `{ primary, secondary, contrast }`.
 
 `global.css` already wires these to body styles:
 - `body` background uses `var(--color-primary)`
 - `body` text uses `var(--color-secondary)`
 - focus outlines and selection use `var(--color-contrast)`
 
-**For Prizm we add a new `prizm` theme** to the theme registry that maps:
-- `primary` → our deepest dark surface (page background)
-- `secondary` → our brightest text color
-- `contrast` → cyan brand accent
+**For Prizm we add a new `prizm` theme** to the registry that maps:
+- `primary` → `surface-void` (page background)
+- `secondary` → `text-primary` (text color)
+- `contrast` → `cyan-500` (accent)
 
-Then we **also add our extended OKLCH palette as flat colors** in `colors.ts` so Tailwind generates utilities like `bg-cyan-500`, `bg-violet-500`, `bg-surface-raised`, etc. The build script generates `--color-{name}` for every entry in the `colors` object.
+We **also add our extended OKLCH palette as flat colors** in `colors.ts` so Tailwind generates utilities like `bg-cyan-500`, `bg-violet-500`, `bg-surface-raised`. The build script generates `--color-{name}` for every entry in the `colors` object.
 
 ---
 
@@ -120,7 +192,7 @@ const colors = {
   'cyan-500':      'oklch(0.78 0.18 200)',
   'cyan-600':      'oklch(0.68 0.20 205)',
 
-  // Spectrum — refracted accents
+  // Spectrum — refracted accents (cyan apex → ember base)
   'cobalt-500':    'oklch(0.62 0.22 258)',
   'violet-500':    'oklch(0.60 0.24 295)',
   'magenta-500':   'oklch(0.65 0.24 340)',
@@ -141,29 +213,30 @@ const colors = {
 } as const
 ```
 
-Add `prizm` to `themeNames` and the `themes` object:
+Add `prizm` to `themeNames`:
 
 ```typescript
 const themeNames = ['light', 'dark', 'red', 'evil', 'prizm'] as const
+```
 
-const themes = {
-  // keep existing...
-  prizm: {
-    primary: colors['surface-void'],
-    secondary: colors['text-primary'],
-    contrast: colors['cyan-500'],
-  },
-} as const satisfies Themes
+Add the `prizm` theme to the `themes` object:
+
+```typescript
+prizm: {
+  primary: colors['surface-void'],
+  secondary: colors['text-primary'],
+  contrast: colors['cyan-500'],
+},
 ```
 
 ### Step 2 — Add custom CSS to `lib/styles/css/global.css`
 
-Append to the existing file:
+Append:
 
 ```css
 :root {
   --prism-gradient: linear-gradient(
-    135deg in oklch,
+    180deg in oklch,
     var(--color-cyan-500) 0%,
     var(--color-cobalt-500) 22%,
     var(--color-violet-500) 50%,
@@ -173,13 +246,15 @@ Append to the existing file:
 }
 ```
 
+Note: the gradient direction is `180deg` (top→bottom) to match the cyan-apex/ember-base color mapping in the brand mark. Use the same direction in any SVG `<linearGradient>` defs that reference this.
+
 ### Step 3 — Run `bun run setup:styles`
 
-Regenerates `tailwind.css` and `root.css` with all our colors. Now utilities like `bg-cyan-500`, `text-text-secondary`, `border-surface-line` work everywhere.
+Regenerates `tailwind.css` and `root.css` with all our colors. Verify utilities like `bg-cyan-500`, `text-text-secondary`, `border-surface-line` work.
 
 ### Color usage rules
 
-- Use `theme="prizm"` on the `Wrapper` for all marketing pages (sets dark obsidian bg, near-white text, cyan accent).
+- Use `theme="prizm"` on the `Wrapper` for all marketing pages.
 - Spectrum colors never exceed 20% of any section's surface area.
 - One accent per section. Hero (cyan + cobalt). Problem (cobalt). Pillars (cyan/violet/ember). Features (rotating). Prizm Custom (violet). Final CTA (cyan).
 - Body text lives at `text-text-secondary`. `text-text-primary` is reserved for headlines and emphasis.
@@ -189,62 +264,40 @@ Regenerates `tailwind.css` and `root.css` with all our colors. Now utilities lik
 
 ## Typography (FINAL)
 
-### Step 1 — Add fonts via `lib/styles/fonts.ts`
+### Phase 1A approach — ship on free fonts
 
-Use `next/font/local` (Satūs's existing pattern). For Phase 1A we register declarations pointing to expected paths and rely on system fallbacks. **Real font files are installed in Phase 3.**
+Use **Geist + Geist Mono** for Phase 1A. Both free, ship via `bun add geist`. Save Neue Machina + Berkeley Mono ($174 total) for Phase 3 as an upgrade pass once the site's generating founder calls.
 
-Pattern:
+### Step 1 — Edit `lib/styles/fonts.ts`
+
 ```typescript
 import { GeistSans } from 'geist/font/sans'
-import localFont from 'next/font/local'
+import { GeistMono } from 'geist/font/mono'
 
-// Display — Neue Machina (real files come Phase 3)
-const display = localFont({
-  src: [
-    { path: '../../public/fonts/PPNeueMachina-Medium.woff2', weight: '500', style: 'normal' },
-    { path: '../../public/fonts/PPNeueMachina-MediumItalic.woff2', weight: '500', style: 'italic' },
-  ],
-  display: 'swap',
-  variable: '--next-font-display',
-  preload: false,           // false until real files exist in Phase 3
-  fallback: ['system-ui', 'sans-serif'],
-})
+const sans = GeistSans   // .variable e.g. '--font-geist-sans'
+const mono = GeistMono   // .variable e.g. '--font-geist-mono'
 
-// Sans — Geist (free, install via bun add geist)
-const sans = GeistSans  // already exposes .variable
-
-// Mono — Berkeley Mono (real files come Phase 3, replaces existing ServerMono)
-const mono = localFont({
-  src: [{ path: '../../public/fonts/BerkeleyMono-Regular.woff2', weight: '400', style: 'normal' }],
-  display: 'swap',
-  variable: '--next-font-mono',
-  preload: false,
-  fallback: ['ui-monospace', 'SFMono-Regular', 'Consolas', 'monospace'],
-})
-
-const fonts = [display, sans, mono]
+const fonts = [sans, mono]
 const fontsVariable = fonts.map((font) => font.variable).join(' ')
 
 export { fontsVariable }
 ```
 
-For Phase 1A, the `preload: false` and missing files mean the fonts gracefully fall back to system fonts. Page renders correctly. In Phase 3 we drop in the real `.woff2` files, set `preload: true`, and the typography becomes pixel-perfect.
+### Step 2 — Edit `lib/styles/typography.ts`
 
-### Step 2 — Register in `lib/styles/typography.ts`
-
-Update the `fonts` object to map short names to CSS variable names:
+Update the `fonts` object:
 
 ```typescript
 const fonts = {
-  display: '--next-font-display',
-  sans: '--next-font-geist-sans',  // Geist's actual variable name
-  mono: '--next-font-mono',
+  display: '--font-geist-sans',  // Phase 3 swap point — replace with '--next-font-display' when Neue Machina installs
+  sans: '--font-geist-sans',
+  mono: '--font-geist-mono',
 } as const
 ```
 
-(Verify Geist's variable name when installing — it's typically `--font-geist-sans` but check.)
+(Verify the actual variable names exposed by `geist/font/sans` and `geist/font/mono` when installing.)
 
-Replace the `typography` object with our type scale:
+Replace the placeholder `typography` object:
 
 ```typescript
 const typography: TypeStyles = {
@@ -315,15 +368,15 @@ const typography: TypeStyles = {
 } as const
 ```
 
-After saving and running `bun run setup:styles`, you have utility classes: `dr-display-xl`, `dr-display-lg`, `dr-body-md`, `dr-caption`, `dr-mono-lg`, etc.
+After running `bun run setup:styles`: utility classes `dr-display-xl`, `dr-display-lg`, `dr-body-md`, `dr-caption`, `dr-mono-lg`, etc.
 
 ### Type rules
 
-- Headlines: `dr-display-xl` for hero H1, `dr-display-lg` for section H2s, `dr-display-md` for subsections. Always Neue Machina Medium 500.
-- Body: `dr-body-md` for everything except hero subhead which uses `dr-body-lg`. Geist Regular 400.
+- Headlines: `dr-display-xl` for hero H1, `dr-display-lg` for section H2s, `dr-display-md` for subsections. Geist Sans 500.
+- Body: `dr-body-md` for everything except hero subhead which uses `dr-body-lg`. Geist Sans 400.
 - Eyebrows: `dr-caption` ALL CAPS, accent color (e.g. `text-cyan-500`).
 - Every concrete number renders in mono — wrap numerics: `<span className="dr-mono-md">47 days</span>`.
-- Italics only for the pivot word: `<em>Nothing falling through.</em>`. The Neue Machina Italic font kicks in once installed in Phase 3.
+- Italics for the pivot word: `<em>Nothing falling through.</em>`. System italic fallback in 1A; real Neue Machina Italic comes Phase 3.
 
 ---
 
@@ -339,7 +392,6 @@ Satūs handles responsive scaling via the `dr-*` utility system. Sizes specified
 - `dr-gap-{n}` — gap
 - `dr-w-{n}` / `dr-h-{n}` — width / height
 - `dr-rounded-{n}` — border-radius
-- `dr-text-{n}` — font-size override (rare; prefer typography utilities)
 
 `{n}` is the px value at the reference width.
 
@@ -347,7 +399,7 @@ Satūs handles responsive scaling via the `dr-*` utility system. Sizes specified
 
 **Touch targets**: 48px min on mobile.
 
-**Container max-widths**: handled by the grid system. Use `col-span-full` on mobile, `dt:col-start-2 dt:col-end-12` on desktop for primary content blocks. Don't fight the grid.
+**Container max-widths**: handled by the grid system. Use `col-span-full` on mobile, `dt:col-start-2 dt:col-end-12` on desktop for primary content blocks.
 
 ---
 
@@ -379,8 +431,8 @@ ease-in-out-quart:  cubic-bezier(0.77, 0, 0.175, 1)    big moments
 
 ### The 3 cinematic moments (Phase 1B, NOT 1A)
 
-1. **Hero prism reveal** — built using Satūs's WebGL Tunnel pattern (`useWebGLElement` + `WebGLTunnel.In`) per `PATTERNS.md §6`.
-2. **Problem → Pillars convergence** — GSAP timeline.
+1. **Hero Penrose triangle reveal** — volumetric 3D version of the brand mark. R3F + drei. WebGL Tunnel pattern (`useWebGLElement` + `WebGLTunnel.In`) per `PATTERNS.md §6`. Slow rotation reveals subdivision facets. Internal logarithmic spiral becomes the path of an internal light beam.
+2. **Problem → Pillars convergence** — GSAP timeline. 6 chips collapse into Penrose mark, mark deflates (more facets appear), refracts spectrum out into 3 pillars.
 3. **Final CTA aurora** — use existing `<AnimatedGradient />` component, scroll-triggered intensity ramp.
 
 ---
@@ -396,7 +448,7 @@ ease-in-out-quart:  cubic-bezier(0.77, 0, 0.175, 1)    big moments
 | Headline word/char animation (1B) | `SplitText` from `@/components/effects/split-text` | GSAP wrapper |
 | Scroll-driven word reveal (1B) | `ProgressText` from `@/components/effects/progress-text` | |
 | Scroll parallax | `Fold` from `@/components/ui/fold` | If needed |
-| WebGL prism (1B) | `useWebGLElement` + `WebGLTunnel.In` | Per `PATTERNS.md §6` |
+| WebGL hero (1B) | `useWebGLElement` + `WebGLTunnel.In` | Per `PATTERNS.md §6` |
 | Viewport CSS variables | `useViewport` from `@/components/ui/real-viewport` | |
 | Reduced motion preference | `usePreferredReducedMotion` from `@/hooks/use-sync-external` | |
 | Device detection | `useDeviceDetection` from `@/hooks/use-device-detection` | |
@@ -404,14 +456,14 @@ ease-in-out-quart:  cubic-bezier(0.77, 0, 0.175, 1)    big moments
 | Math utils | `clamp`, `lerp`, `mapRange` from `@/utils/math` | |
 | Animation utils | `stagger`, `ease`, `fromTo`, `spring` from `@/utils/animation` | |
 
-**Component generation**: use `bun run generate` for new components — creates the proper Satūs structure.
+**Component generation**: use `bun run generate` for new components.
 
 ---
 
 ## Site copy (locked — do not paraphrase)
 
 ### Header (modify `components/layout/header/index.tsx` — replace existing JSX, keep file)
-- Prism mark + "Prizm" wordmark
+- Penrose mark + "Prizm" wordmark
 - One CTA: "Talk to the founder" → `https://cal.com/prizm-solar`
 
 ### Hero
@@ -452,7 +504,7 @@ Metric:   0 CONTEXT SWITCHES
 Title:    Flexible. Fast. Never the blocker.
 Body:     Deep integrations with everything you already run.
           New capabilities ship weekly.
-          What you need next, we're probably already building.
+          What you need next is already on our roadmap.
 Metric:   WEEKLY RELEASE CADENCE
 
 03 (ember-500)
@@ -485,7 +537,7 @@ Not surface-level. Not webhooks-as-data-payload.
 Block 4 (magenta) - AI
 Agents doing the grunt work.
 Drafting. Routing. Reconciling. Flagging.
-The work you wish you didn't have to hire someone for.
+The work you shouldn't have to hire someone for.
 
 Block 5 (cyan) - FIELD
 The field, in your pocket.
@@ -510,19 +562,18 @@ Body:     Select clients get dedicated engineering through Sandbox Strategies.
 CTA:      Talk to the founder → cal.com/prizm-solar
 Subtext:  By invitation. Founder conversation required.
 ```
-Visual: slightly darker bg vs. neighboring sections, 1px gradient border using `--prism-gradient` (pseudo-element approach in CSS module).
+Visual: slightly darker bg vs. neighboring sections, 1px gradient border using `--prism-gradient`.
 
 ### Final CTA
 ```
 H2:       The solar operating system. Period.
 CTA:      Talk to the founder → cal.com/prizm-solar
-Subtext:  30 minutes with Knighthawk.
-          No decks. No demos you've seen before.
+Subtext:  30 minutes with Knighthawk. Real questions only.
 ```
 Background: `<AnimatedGradient colors={['#0a0c16','#00cfee','#7c4ff5','#ff5c8a','#ffaa44','#0a0c16']} radial flowmap amplitude={1.2} speed={0.4} />` — tune in 1B.
 
 ### Footer (modify `components/layout/footer/index.tsx` — replace existing JSX)
-- Prism mark (32px, prism-gradient on the seam) + "Prizm" wordmark
+- Penrose mark (32px, prism-gradient on the seam) + "Prizm" wordmark
 - "Talk to the founder" → cal.com/prizm-solar
 - "© 2026 Sandbox Strategies"
 - "Built by operators." (mono)
@@ -531,7 +582,7 @@ Background: `<AnimatedGradient colors={['#0a0c16','#00cfee','#7c4ff5','#ff5c8a',
 
 ## Performance budget
 
-- Total page weight: ≤ 1.2 MB (excluding fonts ~150 KB)
+- Total page weight: ≤ 1.2 MB (excluding fonts ~50 KB on Geist alone)
 - LCP: ≤ 1.5s on 4G mobile
 - CLS: 0
 - Lighthouse mobile minimums: Performance ≥ 90, Accessibility ≥ 95, Best Practices ≥ 95, SEO ≥ 95
@@ -547,7 +598,7 @@ Chrome 144+, Edge 144+, Safari 17.5+, Firefox 130+, Mobile Safari iOS 17+, Chrom
 - Change copy specified above (every line is intentional)
 - Change the cal.com URL
 - Add features not in the active session brief
-- Buy fonts (Phase 3 only)
+- Buy fonts (Phase 3 only — Phase 1A ships on Geist + Geist Mono, both free)
 - Touch the existing Prizm app
 - Build a light theme variant
 - Add a hamburger menu
