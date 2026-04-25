@@ -29,8 +29,8 @@ interface HeroPostProcessingProps {
 }
 
 export function HeroPostProcessing({
-  threshold = 0.85,
-  intensity = 1.2,
+  threshold = 0.65,
+  intensity = 1.5,
 }: HeroPostProcessingProps) {
   const gl = useThree((state) => state.gl)
   const camera = useThree((state) => state.camera)

@@ -13,11 +13,11 @@ interface Stop {
 }
 
 const STOPS: Stop[] = [
-  { y: 0.0, hex: '#00cfee', intensity: 1.8 },
-  { y: 0.22, hex: '#3b6cf5', intensity: 1.6 },
-  { y: 0.5, hex: '#7c4ff5', intensity: 1.6 },
-  { y: 0.75, hex: '#ff5c8a', intensity: 1.6 },
-  { y: 1.0, hex: '#ffaa44', intensity: 1.4 },
+  { y: 0.0, hex: '#7ce8ff', intensity: 2.6 },
+  { y: 0.22, hex: '#28c0e6', intensity: 2.2 },
+  { y: 0.5, hex: '#7c4ff5', intensity: 2.0 },
+  { y: 0.75, hex: '#ff5c8a', intensity: 2.0 },
+  { y: 1.0, hex: '#ffaa44', intensity: 1.8 },
 ]
 
 interface PrecomputedStop {

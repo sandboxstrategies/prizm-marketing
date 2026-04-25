@@ -105,14 +105,14 @@ export function PenrosePrism({ isMobile = false }: PenrosePrismProps) {
   return (
     <>
       {/* Three-point lighting */}
-      <ambientLight intensity={0.05} />
-      <directionalLight position={[2, 3, 4]} intensity={2.5} color="#00cfee" />
+      <ambientLight intensity={0.12} />
+      <directionalLight position={[2, 3, 4]} intensity={3.5} color="#00cfee" />
       <directionalLight
         position={[-3, 0.5, 2]}
-        intensity={1.0}
+        intensity={1.6}
         color="#7c4ff5"
       />
-      <directionalLight position={[0, 2, -3]} intensity={1.5} color="#00cfee" />
+      <directionalLight position={[0, 2, -3]} intensity={2.2} color="#00cfee" />
 
       {/* HDR studio environment — soft fill on the glass body. Suspends
           while drei lazy-loads the HDR map; hero copy/CTAs aren't blocked. */}
@@ -120,7 +120,7 @@ export function PenrosePrism({ isMobile = false }: PenrosePrismProps) {
         <Environment
           preset="studio"
           background={false}
-          environmentIntensity={0.3}
+          environmentIntensity={0.5}
         />
       </Suspense>
 

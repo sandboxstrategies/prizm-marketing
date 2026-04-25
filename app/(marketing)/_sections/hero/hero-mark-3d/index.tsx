@@ -67,7 +67,7 @@ export function HeroMark3D() {
       <PerspectiveCamera
         makeDefault
         fov={35}
-        position={[0, 0, 4.5]}
+        position={[0, 0, 2.8]}
         near={0.1}
         far={20}
       />
