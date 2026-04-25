@@ -6,14 +6,16 @@
 Foundation build complete. Every marketing section renders desktop + mobile with locked copy from `PRIZM.md`. Penrose Golden Triangle Prism brand mark exists at four scale-aware variants (favicon / nav / footer / hero-placeholder). Design tokens flow through the Satūs build pipeline; new `prizm` theme registered. Header and footer rebuilt. All CTAs wired to `https://cal.com/prizm-solar`. Production build (`bun run build`) succeeds with 9 routes, 0 errors.
 
 ### Preview URL
-**Pending.** Vercel CLI on this machine is not authenticated and the OAuth device flow is interactive. The user needs to run, in this terminal:
+- **Production (initial):** https://prizm-marketing-j0cm9jd76-prizm-solar.vercel.app (`dpl_FQvgPq1WAMt5KUqpENjRzFgieCSz`) — built without framework hint, alias `prizm-marketing.vercel.app` 404'd.
+- **Preview (post-fix):** https://prizm-marketing-2dzh40bo2-prizm-solar.vercel.app (`dpl_FB1n9Zvk8JDau2GjgaVdKhHSsv15`) — built with `vercel.json` pinning `framework: nextjs` + `bun install/build`. Ready, 55s build.
 
-```
-bunx vercel login
-bunx vercel deploy
-```
+**Both are gated by Vercel deployment protection** (team `prizm-solar` has SAML enabled, blanket-applied to all deployments). HTTP 401 on every URL until protection is loosened. To make this public:
 
-Target team: `prizm-solar` (id `team_5WCsGKLIrCc5YFOCDLq6tUYV`). Existing project `prizm` is the product app — create a new project called `prizm-marketing` for this site. `.vercel/` is already in `.gitignore`.
+- Vercel dashboard → `prizm-solar/prizm-marketing` → **Settings** → **Deployment Protection** → set to *Disabled* (full public) or *Only Preview Deployments* (public prod, gated previews).
+
+Once protection is dialed back, redeploy with `bunx vercel deploy` (preview) or `bunx vercel deploy --prod` to promote a clean build to the production alias `prizm-marketing.vercel.app`.
+
+Project: `prizm-marketing` (id `prj_4xxypbGotBPUft7FdBPDZopKcI8w`) under team `prizm-solar` (id `team_5WCsGKLIrCc5YFOCDLq6tUYV`). GitHub repo connected: `https://github.com/sandboxstrategies/prizm-marketing`. `.vercel/` is in `.gitignore`.
 
 ### Lighthouse mobile (chrome-devtools-mcp navigation, perf excluded by tool)
 - Performance: not measured (tool restriction; deferred to post-deploy)
