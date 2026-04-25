@@ -1,0 +1,30 @@
+.root {
+  display: block;
+  flex-shrink: 0;
+}
+
+.facet {
+  transition: opacity 200ms var(--ease-out-expo);
+}
+
+.seam {
+  filter: drop-shadow(0 0 1.5px var(--color-cyan-500));
+}
+
+.spiral {
+  fill: none;
+  stroke: var(--color-cyan-400);
+  stroke-width: 0.5;
+  stroke-opacity: 0.18;
+  stroke-linecap: round;
+  pointer-events: none;
+}
+
+.silhouette {
+  fill: var(--color-cyan-500);
+}
+
+.apexGlow {
+  /* radial fade from apex used on small variants */
+  pointer-events: none;
+}
