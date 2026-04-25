@@ -226,3 +226,5 @@ bun run check   # Must pass: biome + types + tests
 ## Customization Philosophy
 
 From `BOUNDARIES.md`: modify pages and content freely, extend starter components by creating new ones alongside existing ones. Do not modify core `ui/` primitives unless necessary -- create wrappers instead.
+
+@PRIZM.md
